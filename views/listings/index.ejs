@@ -1,0 +1,56 @@
+<% layout('/layouts/boilerplate') %>
+
+<!-- Bootstrap Icons CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<!-- Flash Messages -->
+<% if (success && success.length > 0) { %>
+  <div class="alert alert-success alert-dismissible fade show mx-2 my-3" role="alert">
+    <%= success %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% } %>
+<% if (error && error.length > 0) { %>
+  <div class="alert alert-danger alert-dismissible fade show mx-2 my-3" role="alert">
+    <%= error %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% } %>
+
+<!-- Listings -->
+<br>
+
+<div class="container-fluid px-2">
+  <div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-4 g-3">
+    <% for (let listing of allListing) { %>
+      <div class="col">
+        <a href="/listings/<%= listing._id %>" class="text-decoration-none text-dark">
+          <div class="card h-100 shadow-sm border-0 rounded-4">
+            <div class="position-relative">
+              <img src="<%= listing.image.url %>" 
+                   class="card-img-top rounded-4" 
+                   alt="listing-image" style="height: 20rem; object-fit: cover;">
+              <i class="bi bi-heart-fill position-absolute top-0 end-0 m-3 fs-4 text-white"></i>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title fw-semibold mb-2"><%= listing.title %></h5>
+              <p class="card-text mb-1">
+                <i class="bi bi-currency-rupee text-success"></i>
+                <% if (listing.price != null) { %>
+                  <%= listing.price %>
+                <% } else { %>
+                  <em>Price not available</em>
+                <% } %>
+              </p>
+              <% if (listing.location) { %>
+                <p class="card-text text-muted">
+                  <i class="bi bi-geo-alt-fill text-danger"></i> <%= listing.location %>
+                </p>
+              <% } %>
+            </div>
+          </div>
+        </a>
+      </div>
+    <% } %>
+  </div>
+</div>

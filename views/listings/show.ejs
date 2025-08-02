@@ -1,0 +1,89 @@
+<% layout('/layouts/boilerplate') %>
+
+<% if (error && error.length > 0) { %>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <%= error %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% } %>
+
+<!-- Leaflet CSS & JS -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<style>
+  #map {
+    height: 500px;
+    width: 100%;
+    margin-top: 40px;
+    border-radius: 10px;
+  }
+</style>
+
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+
+      <h3 class="text-center mb-4">Listing Details</h3>
+
+      <div class="border rounded p-4 shadow bg-light text-center">
+
+        <!-- Listing card -->
+        <div class="d-flex justify-content-center my-4">
+          <div class="card shadow" style="width: 25rem;">
+            <img 
+              src="<%= listing.image?.url || 'https://via.placeholder.com/400x300?text=No+Image' %>" 
+              class="card-img-top" 
+              alt="Listing Image"
+              style="height: 200px; object-fit: cover;"
+            >
+            <div class="card-body p-2">
+              <p class="card-text m-0"><strong><%= listing.title %></strong></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Listing Info -->
+        <ul class="list-unstyled mb-4">
+          <li><strong>Posted by:</strong> <i><%= listing.owner?.username || "Unknown user" %></i></li>
+          <li><strong>Description:</strong> <%= listing.description %></li>
+          <li><strong>Price:</strong> ₹<%= listing.price.toLocaleString("en-IN") %></li>
+          <li><strong>Location:</strong> <%= listing.location %></li>
+          <li><strong>Country:</strong> <%= listing.country %></li>
+        </ul>
+
+        <!-- Buttons -->
+        <div class="d-flex justify-content-center gap-3">
+          <a href="/listings/<%= listing._id %>/edit" class="btn" style="background-color: #fe424d; color: white;">Edit</a>
+
+          <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
+            <button type="submit" class="btn" style="background-color: #fe424d; color: white;">Delete</button>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- 🗺️ Map -->
+      <h3 class="text-center mt-5">Map</h3>
+      <div id="map"></div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const map = L.map('map').setView([28.6139, 77.2090], 13); // Delhi
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    L.marker([28.6139, 77.2090]).addTo(map)
+      .bindPopup('You are here!')
+      .openPopup();
+  });
+</script>

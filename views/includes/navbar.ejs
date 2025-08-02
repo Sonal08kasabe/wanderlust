@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top px-3">
+  <div class="container-fluid">
+    <!-- Brand -->
+    <a class="navbar-brand" href="/listings">
+      <i class="fa-solid fa-compass fs-4"></i>
+    </a>
+
+    <!-- Toggler -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar Content -->
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <!-- Left Nav Links -->
+      <div class="navbar-nav me-3">
+        <a class="nav-link" href="/listings">Explore</a>
+        <a class="nav-link" href="/listings/new">Add Listings</a>
+      </div>
+
+      <!-- Center Search Form -->
+      <form class="d-flex mx-auto w-50" role="search" action="/listings/search" method="GET">
+        <input class="form-control me-2 rounded-pill" type="search" name="q" placeholder="Search listings..." aria-label="Search">
+        <button class="nav-btn rounded-pill" type="submit"> <i class="fas fa-search"></i> </button>
+      </form>
+
+      <!-- Right Auth Buttons -->
+      <div class="ms-auto d-flex gap-2">
+        <% if (!currUser) { %>
+          <form action="/signup" method="GET">
+            <button type="submit" class="nav-btn rounded-pill">Sign Up</button>
+          </form>
+          <form action="/login" method="GET">
+            <button type="submit" class="nav-btn rounded-pill">Log In</button>
+          </form>
+        <% } else { %>
+          <form action="/logout" method="GET">
+            <button type="submit" class="nav-btn rounded-pill">Log Out</button>
+          </form>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</nav>
