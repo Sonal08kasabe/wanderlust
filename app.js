@@ -87,9 +87,11 @@ app.use((req, res, next) => {
 app.use("/listings", listings);
 app.use("/", user);
 
-app.get('/', (req, res) => {
- res.render("listings/index.ejs", { allListing });
-});
+app.get('/', wrapAsync(async (req, res) => {
+  const allListing = await Listing.find({});
+  res.render("listings/index.ejs", { allListing });
+}));
+
 
 
 // ✅ GET /listings — show all listings
@@ -145,7 +147,8 @@ app.use((err, req, res, next) => {
 });
 
 // ✅ Server start
-app.listen(5500, () => {  secret: "SECRET",
-
-  console.log("Listening on port 5500");
+const PORT = process.env.PORT || 5500;
+app.listen(PORT, () => {
+  console.log(`✅ Server is running on port ${PORT}`);
 });
+
