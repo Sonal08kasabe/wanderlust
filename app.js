@@ -87,6 +87,11 @@ app.use((req, res, next) => {
 app.use("/listings", listings);
 app.use("/", user);
 
+app.get('/', (req, res) => {
+ res.render("listings/index.ejs", { allListing });
+});
+
+
 // ✅ GET /listings — show all listings
 app.get("/listings", wrapAsync(async (req, res) => {
   const allListing = await Listing.find({});
