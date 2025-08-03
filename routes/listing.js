@@ -9,6 +9,10 @@ const multer = require("multer");
 const{storage} = require("../cloudConfig.js");
 const upload = multer({storage});
 
+router.get('/', (req, res) => {
+  res.send('Welcome to Wanderlust backend!');
+});
+
 router.get("/new", isLoggedIn,listingController.renderNewForm);
 router
 .route("/")
