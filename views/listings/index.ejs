@@ -21,19 +21,20 @@
 <br>
 
 <div class="container-fluid px-2">
-  <div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-4 g-3">
+  <div class="row g-3">
     <% for (let listing of allListing) { %>
-      <div class="col">
+      <div class="col-6 col-md-4 col-lg-3">
         <a href="/listings/<%= listing._id %>" class="text-decoration-none text-dark">
-          <div class="card h-100 shadow-sm border-0 rounded-4">
+          <div class="card h-95 shadow-sm border-0 rounded-4">
             <div class="position-relative">
               <img src="<%= listing.image.url %>" 
-                   class="card-img-top rounded-4" 
-                   alt="listing-image" style="height: 20rem; object-fit: cover;">
+                   class="card-img-top rounded-4"
+                   alt="listing-image"
+                   style="height: 190px; object-fit: cover;">
               <i class="bi bi-heart-fill position-absolute top-0 end-0 m-3 fs-4 text-white"></i>
             </div>
-            <div class="card-body">
-              <h5 class="card-title fw-semibold mb-2"><%= listing.title %></h5>
+            <div class="card-body py-2 px-3" style="font-size: 0.9rem;">
+              <h6 class="card-title fw-semibold mb-1"><%= listing.title %></h6>
               <p class="card-text mb-1">
                 <i class="bi bi-currency-rupee text-success"></i>
                 <% if (listing.price != null) { %>
@@ -43,7 +44,7 @@
                 <% } %>
               </p>
               <% if (listing.location) { %>
-                <p class="card-text text-muted">
+                <p class="card-text text-muted mb-0">
                   <i class="bi bi-geo-alt-fill text-danger"></i> <%= listing.location %>
                 </p>
               <% } %>
